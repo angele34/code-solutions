@@ -1,7 +1,5 @@
 <h1 align="center">
-    <br>
     CS Topics
-    <br>
 </h1>
 
 ## Intro to CS
