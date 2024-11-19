@@ -14,6 +14,7 @@ void printLine() {
 
 int main() {
     int i = 0;
+    
     printLine();
     for (i=1;i<= CARD_SIZE*4; i++) {
         // not divisible by 3
