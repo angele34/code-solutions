@@ -32,46 +32,29 @@ int checkQueens(int board[][SIZE]) {
         if (count > 1) 
             return 0;
     }
-    // // Check diagonals
-    // for (i = 0; i < SIZE; i++) {
-    //     for (j = 0; j < SIZE; j++) {
-    //         if (board[i][j] == 1) { // Check if there is a queen on the cell
-    //             int x = i+1, y = j+1;
-    //             while (x < SIZE && y < SIZE) {
-    //                 if (board[x][y] == 1) {
-    //                     return 0;
-    //                 }
-    //                 x++;
-    //                 y++;
-    //             }
-    //         }
-    //     }
-        
-    // }
-    
-    // for (i = 0; i < SIZE; i++) {
-    //     for (j = 0; j < SIZE; j++) {
-    //         if (board[i][j] == 1) {
-    //             int x = i+1, y = j-1;
-    //             while (x < SIZE && y >= 0) {
-    //                 if (board[x][y] == 1) {
-    //                     return 0;
-    //                 }
-    //                 x++;
-    //                 y--;
-    //             }
-    //         }
-    //     }
-    // }
-
+    // Check diagonals
     for (i = 0; i < SIZE; i++) {
         for (j = 0; j < SIZE; j++) {
             if (board[i][j] == 1) {
-                int x,y;
-                // Bottom right diagonal
-                // Top left diagonal
-                // Bottom left diagonal
-                // Top right diagonal
+                // Top left to bottom right
+                for (int c = i+1, k = j+1; c < SIZE && k < SIZE; c++, k++) {
+                    if (board[c][j] == 1) 
+                        return 0;
+                }
+                for (int c = i-1, k = j-1; c >= 0 && k >= 0; c--, k--) {
+                    if (board[c][j] == 1) 
+                        return 0;
+                }
+                // Top right to bottom left
+                for (int c = i+1, k = j-1; c < SIZE && k >= 0; c++, k--) {
+                    if (board[c][j] == 1) 
+                        return 0;
+                }
+                for (int c = i-1, k = j+1; c >= 0 && k >= SIZE; c--, k++) {
+                    if (board[c][j] == 1) 
+                        return 0;
+                }
+                
             }
         }
     }
@@ -89,7 +72,7 @@ int main() {
     }
     int canAttack = checkQueens(queens);
     if (canAttack == 1) 
-        printf("No two quens can attack each other\n");
+        printf("No two queens can attack each other\n");
     else    
         printf("There are two queens that can attack each other\n");
     return 0;
