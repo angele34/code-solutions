@@ -1,0 +1,134 @@
+\documentclass{book}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{enumitem} % Add this package for customizing lists
+\usepackage{amsmath} % Required for math environments like cases
+
+\setlength{\topmargin}{-.5 in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\textheight}{9.in}
+\setlength{\textwidth}{6.5in}
+\pagestyle{empty}
+
+\title{CSMATH1}
+
+\begin{document}
+
+\maketitle
+\vspace{0.2cm}
+
+\section{Functions and Graphing Practice}
+Graph each function and give the domain and range.
+
+\vspace{0.2cm}
+
+\begin{enumerate}
+    \item $f(x) = \sqrt{x + 3}$
+    \item $f(x) = 9 - x^2$
+    \item $f(x) = -4 - x^2$
+    \item $f(x) = |5x + 2|$
+    \item $f(x) = \frac{(x^2 - 4)(x - 3)}{x^2 - x - 6}$
+    \item $f(x) = \begin{cases} 
+        3 - x & \text{if } x < 2, \\
+        3 & \text{if } x = 2, \\
+        \frac{1}{2}x & \text{if } x > 2.
+    \end{cases}$
+    \item $f(x) = \begin{cases} 
+        1 - x^2 & \text{if } x < 0, \\
+        3x + 1 & \text{if } x \geq 0.
+    \end{cases}$
+    \item $f(x) = \begin{cases} 
+        x + 3 & \text{if } x < -5, \\
+        25 - x^2 & \text{if } -5 \leq x \leq 5, \\
+        3 - x & \text{if } x > 5.
+    \end{cases}$
+    \item $f(x) = \begin{cases} 
+        2 & \text{if } x < -2, \\
+        -1 & \text{if } x = -2, \\
+        -3 & \text{if } x > -2.
+    \end{cases}$
+    \item $f(x) = 2 - |x + 4|$
+\end{enumerate}
+
+\vspace{0.3cm}
+
+\section{Limits Practice Exercises}
+
+Find the following limits if they exist.
+\vspace{0.2cm}
+
+\begin{enumerate}
+    \item $\displaystyle \lim_{x \to 2} x^2 + 2x - 1$
+    \item $\displaystyle \lim_{t \to 1} \frac{t^2 - 5}{2t^3 + 6}$
+    \item $\displaystyle \lim_{r \to 1} \sqrt{\frac{8r + 1}{r + 3}}$
+    \item $\displaystyle \lim_{x \to -\frac{3}{2}} \frac{4x^2 - 9}{2x + 3}$
+    \item $\displaystyle \lim_{x \to 4} \frac{3x^2 - 8x - 16}{2x^2 - 9x + 4}$
+    \item $\displaystyle \lim_{y \to -2} \frac{y^3 + 8}{y + 2}$
+    \item $\displaystyle \lim_{x \to 1} \frac{x^2 + x - 2}{x^2 - x}$
+    \item $\displaystyle \lim_{u \to 1} \frac{u^4 - 1}{u^3 - 1}$
+    \item $\displaystyle \lim_{x \to 2} \frac{x^3 - 2x^2 + 4x - 8}{2x^2 - 5x + 2}$
+    \item $\displaystyle \lim_{x \to 3} \frac{2x^3 - 5x^2 - 2x - 3}{4x^3 - 13x^2 + 4x - 3}$
+    \item $\displaystyle \lim_{h \to 0} \frac{\sqrt{2 + h} - \sqrt{2}}{h}$
+    \item $\displaystyle \lim_{x \to 9} \frac{\sqrt{x} - 3}{x - 9}$
+    \item $\displaystyle \lim_{x \to -1^+} \left( \frac{7x + 2}{1 + x} \cdot \frac{x - 3}{3x + 1} \right)$
+    \item $\displaystyle \lim_{x \to 2^-} \left( \frac{4x}{4 - x^2} \cdot \frac{3}{5x - 1} \right)$
+    
+    \item $\displaystyle \lim_{x \to 2} \frac{x^2 + 4x - 12}{x^2 - 2x}$
+
+    \item $\displaystyle \lim_{x \to 1} \frac{x - 1}{\sqrt{x + 3} - 2}$
+    \item $\displaystyle \lim_{x \to -1} \frac{\sqrt{x + 5} - 2}{x + 1}$
+    \item $\displaystyle \lim_{x \to 2^+} \frac{x - 3}{x^2 - 4}$
+    \item $\displaystyle \lim_{x \to -5^-} \frac{3x}{2x+10}$
+    \item $\displaystyle \lim_{x \to 3^-} \frac{x^2 + x + 2}{x^2 - 2x - 3}$
+    \item $\displaystyle \lim_{x \to 0^+} \frac{x^2 - 3x + 2}{x^3 - 2x^2}$
+    \item $\displaystyle \lim_{x \to 2^+} \frac{x^2 - 3x + 2}{x^3 - 2x^2}$
+    \item $\displaystyle \lim_{x \to +\infty} \frac{5x^2 + 8x - 3}{3x^2 + 2}$
+    \item $\displaystyle \lim_{x \to -\infty} \frac{3x + 7}{x^2 - 2}$
+    \item $\displaystyle \lim_{x \to -\infty} \frac{2x^2 - 3}{7x + 4}$
+    \item $\displaystyle \lim_{x \to -\infty} \frac{x}{\sqrt{4 + x^2}}$
+    \item $\displaystyle \lim_{x \to +\infty} \frac{3x + 4}{\sqrt{2x^2 + 5}}$
+    \item $\displaystyle \lim_{x \to 4^-} \left( \frac{x - 2}{1 - 8x} + \frac{2x - 3}{x - 4} \right)$
+    \item $\displaystyle \lim_{x \to 1^+} \left( \frac{2 - 5x}{1 - x} \cdot \frac{2x^2 - 3}{x + 1} \right)$
+    \item $\displaystyle \lim_{h \to 0} \frac{2(-3 + h)^2 - 18}{h}$
+\end{enumerate}
+
+\vspace{1.5cm}
+
+\section{Trigonometric Limits Practice Exercises}
+Find the following limits if they exist.
+\vspace{0.2cm}
+
+\begin{enumerate}
+\item $\displaystyle \lim_{x \to 0} \frac{\sin x}{x}$
+\item $\displaystyle \lim_{x \to 0} \frac{1 - \cos x}{x}$
+\item $\displaystyle \lim_{x \to 0} \frac{\tan x}{x}$
+\item $\displaystyle \lim_{x \to 0} \frac{\sin(3x)}{x}$
+\item $\displaystyle \lim_{x \to 0} \frac{\sin(5x)}{(2x)}$
+
+\item $\displaystyle \lim_{x \to 0} \frac{1 - \cos x}{x^2}$
+\item $\displaystyle \lim_{x \to 0} \frac{\sin^2x}{x^2}$
+\item $\displaystyle \lim_{x \to 0} \frac{\sin(x^2)}{x}$
+\item $\displaystyle \lim_{x \to 0} \frac{\tan (3x)}{\sin(5x)}$
+\item $\displaystyle \lim_{x \to 0} \frac{1 - \cos(2x)}{x^2}$
+\end{enumerate}
+
+\vspace{1.5cm}
+
+
+\section{Continuity}
+On what intervals is each function continuous?
+\vspace{0.3cm}
+\begin{enumerate}
+    \item $\displaystyle {f(x) = x^{100} - 2x^{37} + 75}$
+    \item $\displaystyle {g(x) = } \frac{x^2 + 2x + 17}{x^2 - 1}$
+    \item $\displaystyle \sqrt{x} + \frac{x+1}{x-1} - \frac{x+1}{x^2 + 1}$
+    \vspace{0.3cm}
+    \item Evaluate $\displaystyle \lim_{x \to \pi} \frac{sin(x)}{2 + cos(x)}$
+    
+\end{enumerate}
+
+\vspace{0.3cm}
+
+\end{document}
+
+
