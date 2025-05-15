@@ -4,7 +4,7 @@ import java.util.*;
 // Javadoc comments (NOTE: refer to "How to write Javadoc comments")
 
 /*
- > javac javac -d . SimpleApp.java
+ > javac -d . SimpleApp.java
  > java Exercises.CCPROG3.SimpleApp
  */
 
@@ -27,10 +27,19 @@ public class SimpleApp { // className
         System.out.println("Sum is " + (x + y));
         sc.close();
 
-        for (int i = 1; i <= x + y; i++) {
+        for (int i = 1; i <= x + y; i++) 
             System.out.print(i + " ");
-        }
+        
         System.out.println();
+        System.out.println("Pyramid");
+        for (int i = 1; i <= x + y; i++) {
+            for (int j = i+1; j <= x + y; j++) 
+                System.out.print(" ");
+            for (int j = 1; j < i+1; j++) 
+                System.out.print("#");
+            System.out.println();
+        }
+
     }
 }
 
@@ -101,3 +110,4 @@ cmd: java Main
 
 
 */
+
