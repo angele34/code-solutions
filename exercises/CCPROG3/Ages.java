@@ -1,22 +1,42 @@
 package Exercises.CCPROG3;
-import java.lang.*;
 import java.util.*;
 
 /**
- Programming with Arrays homework #1 for CCPROG3.
+ * Programming with Arrays homework #1 for CCPROG3.
+ * This program reads and stores human and dog ages in a ragged 2D array,
+ * converts the dog ages to real ages using a log formula,
+ * and displays comparisons between the human age and each dog's real age.
+ * 
+ * Sample output:
+ * Human 1, age <56>
+ *   > 43
+ *   < 68
+ *
  * @author Angel Arwen E. Reyes
  * @author Tara Ysabel P. Uy
  * @version 1.0
 */
 
 /* 
- Compile:
+ Compile (in your local machine):
+ javac Ages.java
+ Run:
+ java Ages
+
+ Compile (working directory):
  javac -d . Ages.java
  Run:
  java Exercises.CCPROG3.Ages
 */
 
+
+
 public class Ages {
+    /** 
+	 * The main method to run the program.
+     * Initializes the ragged array, gathers input, computes dog ages,
+     * and displays the formatted result.
+	*/
     public static void main(String[] args) 
     {
         Scanner sc = new Scanner(System.in);
@@ -26,11 +46,22 @@ public class Ages {
         double [][] ages = new double[numHumans][];  
 
         // Function calls
-        getAges(ages, sc);
-        computeAges(ages);
-        displayAges(ages);
-        sc.close();
+        getAges(ages, sc);	// Collect human and dog ages from user
+        computeAges(ages);	// Convert dog ages to real ages
+        displayAges(ages);	// Show comparison of ages
+        
+		// Close the Scanner
+		sc.close();
     }
+
+    /**
+     * Prompts the user to input human ages and dog ages for each human.
+     * Stores the data in a ragged 2D array where the first element per row
+     * is the human's age and the rest are their dogs' ages.
+     *
+     * @param ages 	the ragged 2D array to be filled with ages
+     * @param sc 	the Scanner object for user input
+    */
 
     public static void getAges(double [][] ages, Scanner sc) 
     {
@@ -41,6 +72,8 @@ public class Ages {
 
             System.out.println("Number of dogs to input for Human " + (i+1) + ": ");            
             int numPets = Integer.parseInt(sc.nextLine());
+
+            // Create row with 1 slot for human + n slots for each dog
             ages[i] = new double[numPets+1];
             ages[i][0]= humanAge;
 
@@ -50,6 +83,14 @@ public class Ages {
             }
         }
     }
+
+    /**
+     * Converts each dog's age (in human years) in the array
+     * to its real age using the formula:
+     * 16 x log(age of dog in human years) + 31, then replaces the original value.
+     *
+     * @param ages 	the ragged 2D array containing human and dog ages
+    */
 
     public static void computeAges(double [][] ages)
     {
@@ -81,10 +122,20 @@ public class Ages {
                                             Sample Output
                                         *-------------------*
     Human 1, age <56>
-        > 42
+        > 43
         < 68
     */
-    
+
+    /**
+     * Displays each human's age followed by the comparison ('<', '>', or '=') 
+	 * of their age to each of their dogs’ real ages using the specified format.
+	 * '<' if dog is older
+     * '>' if dog is younger
+     * '=' if equal in age
+     *
+     * @param ages 	the ragged 2D array containing human and real dog ages
+    */
+
     public static void displayAges(double [][] ages)
     {
         System.out.println();
