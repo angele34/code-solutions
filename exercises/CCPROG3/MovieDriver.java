@@ -28,8 +28,10 @@ public class MovieDriver {
 
         // 6 : Display the total number of movies instantiated
         System.out.println("Total number of movies: " + Movie.getTotalMovies());
+
+        MovieDriver driver = new MovieDriver();
         // 7 :  Display the title, genre, and year of all movies in mustWatch
-        displayMovies(mustWatch);
+        driver.displayMovies(mustWatch);
         // 8 : Modify genre of first movie in mustWatch to sci-fi
         mustWatch[0].updateGenre("sci-fi");
         // 9 : Modify genre of 4th movie in mustWatch to kids
@@ -40,7 +42,7 @@ public class MovieDriver {
         mustWatch[2].updateYear(2011);
         // 12 : Display the title, genre, and year of all movies in mustWatch
         System.out.println("\nAfter updates:");
-        displayMovies(mustWatch);
+        driver.displayMovies(mustWatch);
         // 13 : Add Natalie Portman as another actor to the third movie stored in mustWatch
         mustWatch[2].addActor("Natalie Portman");
         // 14 : Add the following actors (in sequence) to the second movie stored in mustWatch:
@@ -53,10 +55,10 @@ public class MovieDriver {
         mustWatch[1].addActor("Psyduck");
         // 15 : Display all actors of the third movie stored in mustWatch
         System.out.println("\nActors in Thor:");
-        displayActors(mustWatch[2]);
+        driver.displayActors(mustWatch[2]);
         // 16 : Display all actors of the second movie stored in mustWatch
         System.out.println("\nActors in Pokemon:");
-        displayActors(mustWatch[1]);
+        driver.displayActors(mustWatch[1]);
         System.out.println();
         // 17 : Declare and instantiate another array of at most 3 movies called myRental
         Movie[] myRental = new Movie[3];
@@ -76,7 +78,7 @@ public class MovieDriver {
         System.out.println("Total number of movies: " + Movie.getTotalMovies());
         // 20 : Display the title, genre, and year of all movies in mustWatch
         System.out.println("\nMustWatch Movies:");
-        displayMovies(mustWatch);
+        driver.displayMovies(mustWatch);
         // 21 : Display the title, genre, and year of all movies in myRental
         System.out.println("\nMyRental Movies:");
         for (Movie m : myRental) {
@@ -100,7 +102,7 @@ public class MovieDriver {
         System.out.println("\nFinal Total Movies: " + Movie.getTotalMovies());
     }
 
-   public static void displayMovies(Movie[] mustWatch) {
+   public void displayMovies(Movie[] mustWatch) {
         for (Movie m : mustWatch) {
             if (m != null) {
                 System.out.printf("%-25s %-10s %-4d\n",
@@ -109,7 +111,7 @@ public class MovieDriver {
         }
     }   
 
-    public static void displayActors(Movie m) 
+    public void displayActors(Movie m) 
     {
         if (m == null) return;
         String[] actors = m.getActors();
