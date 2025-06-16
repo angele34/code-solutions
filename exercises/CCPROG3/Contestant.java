@@ -1,3 +1,4 @@
+package Exercises.CCPROG3;
 /**
  * Object-based Programming homework #2 for CCPROG3 (Part A).
  * This program implements the Contestant UML class diagram in code.

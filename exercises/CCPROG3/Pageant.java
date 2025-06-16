@@ -1,3 +1,4 @@
+package Exercises.CCPROG3;
 import java.util.Scanner;
 
 /**
