@@ -1,0 +1,122 @@
+#! /c/Source/iverilog-install/bin/vvp
+:ivl_version "12.0 (devel)" "(s20150603-1539-g2693dd32b)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision - 12;
+:vpi_module "C:\iverilog\lib\ivl\system.vpi";
+:vpi_module "C:\iverilog\lib\ivl\vhdl_sys.vpi";
+:vpi_module "C:\iverilog\lib\ivl\vhdl_textio.vpi";
+:vpi_module "C:\iverilog\lib\ivl\v2005_math.vpi";
+:vpi_module "C:\iverilog\lib\ivl\va_math.vpi";
+S_000001ca67c18fa0 .scope module, "simple_circuit_tb" "simple_circuit_tb" 2 3;
+ .timescale -9 -12;
+v000001ca67c16580_0 .var "t_A", 0 0;
+v000001ca67c16620_0 .var "t_B", 0 0;
+v000001ca67c166c0_0 .var "t_C", 0 0;
+v000001ca67c16760_0 .net "t_D", 0 0, L_000001ca67c1a340;  1 drivers
+v000001ca67c16800_0 .net "t_E", 0 0, L_000001ca67b36860;  1 drivers
+S_000001ca67c1bd50 .scope module, "dut" "simple_circuit" 2 7, 3 5 0, S_000001ca67c18fa0;
+ .timescale -9 -12;
+    .port_info 0 /OUTPUT 1 "D";
+    .port_info 1 /OUTPUT 1 "E";
+    .port_info 2 /INPUT 1 "A";
+    .port_info 3 /INPUT 1 "B";
+    .port_info 4 /INPUT 1 "C";
+UDP_UDP_D .udp/comb "UDP_D", 3
+ ,"0001"
+ ,"0010"
+ ,"0101"
+ ,"0110"
+ ,"1001"
+ ,"1010"
+ ,"1101"
+ ,"1111";
+L_000001ca67c1a340 .udp UDP_UDP_D, v000001ca67c16580_0, v000001ca67c16620_0, v000001ca67c166c0_0;
+UDP_UDP_E .udp/comb "UDP_E", 3
+ ,"0001"
+ ,"0010"
+ ,"0101"
+ ,"0110"
+ ,"1001"
+ ,"1010"
+ ,"1101"
+ ,"1110";
+L_000001ca67b36860 .udp UDP_UDP_E, v000001ca67c16580_0, v000001ca67c16620_0, v000001ca67c166c0_0;
+v000001ca67c1a160_0 .net "A", 0 0, v000001ca67c16580_0;  1 drivers
+v000001ca67c1a200_0 .net "B", 0 0, v000001ca67c16620_0;  1 drivers
+v000001ca67c1a2a0_0 .net "C", 0 0, v000001ca67c166c0_0;  1 drivers
+v000001ca67c16440_0 .net "D", 0 0, L_000001ca67c1a340;  alias, 1 drivers
+v000001ca67c164e0_0 .net "E", 0 0, L_000001ca67b36860;  alias, 1 drivers
+    .scope S_000001ca67c18fa0;
+T_0 ;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v000001ca67c16580_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v000001ca67c16620_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v000001ca67c166c0_0, 0, 1;
+    %delay 10000, 0;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v000001ca67c16580_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v000001ca67c16620_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v000001ca67c166c0_0, 0, 1;
+    %delay 10000, 0;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v000001ca67c16580_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v000001ca67c16620_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v000001ca67c166c0_0, 0, 1;
+    %delay 10000, 0;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v000001ca67c16580_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v000001ca67c16620_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v000001ca67c166c0_0, 0, 1;
+    %delay 10000, 0;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v000001ca67c16580_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v000001ca67c16620_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v000001ca67c166c0_0, 0, 1;
+    %delay 10000, 0;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v000001ca67c16580_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v000001ca67c16620_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v000001ca67c166c0_0, 0, 1;
+    %delay 10000, 0;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v000001ca67c16580_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v000001ca67c16620_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v000001ca67c166c0_0, 0, 1;
+    %delay 10000, 0;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v000001ca67c16580_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v000001ca67c16620_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v000001ca67c166c0_0, 0, 1;
+    %delay 10000, 0;
+    %vpi_call 2 18 "$finish" {0 0 0};
+    %end;
+    .thread T_0;
+    .scope S_000001ca67c18fa0;
+T_1 ;
+    %vpi_call 2 22 "$monitor", "time = %d: A = %b B = %b C = %b | D = %b E = %b", $time, v000001ca67c16580_0, v000001ca67c16620_0, v000001ca67c166c0_0, v000001ca67c16760_0, v000001ca67c16800_0 {0 0 0};
+    %vpi_call 2 24 "$dumpfile", "simple_circuit.vcd" {0 0 0};
+    %vpi_call 2 25 "$dumpvars", 32'sb00000000000000000000000000000000, S_000001ca67c18fa0 {0 0 0};
+    %end;
+    .thread T_1;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "simple_circuit_tb.v";
+    "simple_circuit.v";

@@ -1,0 +1,70 @@
+$date
+	Mon Feb 16 13:49:16 2026
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module simple_circuit_tb $end
+$var wire 1 ! t_E $end
+$var wire 1 " t_D $end
+$var reg 1 # t_A $end
+$var reg 1 $ t_B $end
+$var reg 1 % t_C $end
+$scope module dut $end
+$var wire 1 # A $end
+$var wire 1 $ B $end
+$var wire 1 % C $end
+$var wire 1 " D $end
+$var wire 1 ! E $end
+$var wire 1 & w1 $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+$end
+#0
+$dumpvars
+0&
+0%
+0$
+0#
+1"
+1!
+$end
+#10000
+0"
+0!
+1%
+#20000
+1"
+1!
+0%
+1$
+#30000
+0"
+0!
+1%
+#40000
+1"
+1!
+0%
+0$
+1#
+#50000
+0"
+0!
+1%
+#60000
+1"
+1!
+1&
+0%
+1$
+#70000
+0!
+1%
+#80000
