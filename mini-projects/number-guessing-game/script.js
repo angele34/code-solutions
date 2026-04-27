@@ -4,11 +4,11 @@ let hint = document.getElementById("hint");
 let status = document.getElementById("guessStatus");
 let prev = document.getElementById("prevGuesses");
 let resetBtn = document.getElementById("resetBtn");
-let submitBtn = document.getElementById("submitguess");
+let submitBtn = document.getElementById("submitBtn");
 
 function initialize() {
     submitBtn.disabled = false;
-    randomNum = Math.floor(Math.random() * 10 + 1);
+    randomNum = Math.floor(Math.random() * 100 + 1);
     guessCounter = 0;
     guessCount = 10;
     resetBtn.style.display = "none";
@@ -16,7 +16,7 @@ function initialize() {
     hint.textContent = "";
     status.textContent = "";
     document.getElementById("guessedNum").value = "";
-    document.getElementById("guessDisplay").textContent = "Guesses: " + guessCounter;
+    document.getElementById("guessDisplay").textContent = "Attempts: " + guessCounter;
 }
 
 initialize();
