@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans+Code:ital,wght,MONO@0,300..800,1;1,300..800,1&display=swap');
+body, html {
+    background-color: #21201e;
+    margin: auto;
+    max-width: 600px;
+    display: flex;
+    justify-content: center; 
+    align-items: center;    
+    height: 50vh;
+}
+
+h1 {
+    color: #91aa5f;;
+    font-family: "Google Sans Code", monospace;
+    font-weight: 500;
+}
+
+p {
+    color: white;
+}
+
+form {
+    color: white;
+}
+
+.hidden { 
+    display: none; 
+}
+
+.inner-container {
+    margin-bottom: 10px;
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+#resetBtn {
+    display: none;
+}
