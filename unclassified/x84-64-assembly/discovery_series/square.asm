@@ -3,40 +3,41 @@
 ; Output the required result. There should be an error check
 ; for negative input. Porgam should support result value up to 2^32
 
-; Perimeter = 4*s, Area = s^2
-
+; Angel Arwen E. Reyes S30D
 %include "io64.inc"
 section .text
 global main
 main:
     PRINT_STRING "Enter length: "
+    
+    GET_DEC 4, eax  ; read up to 2^32
+    cmp eax, 0
+    JL negative ; jump if negative (less than 0)
+    PRINT_DEC 4, eax
+    NEWLINE
+    
+    mov esi, eax    ; store value of eax in esi
+    ; Perimeter = 4*s
+    IMUL eax, 4
+    PRINT_STRING "Perimeter: "
+    PRINT_DEC 4, eax
+    NEWLINE
+    
+    ; Area = s*s
+    mov ebx, esi
+    IMUL ebx, ebx
+    PRINT_STRING "Area: "
+    PRINT_DEC 4, ebx
+    NEWLINE
+    xor rax, rax
+    ret
+negative:
+    PRINT_DEC 4, eax
+    NEWLINE
+    PRINT_STRING "Negative input not allowed, please try again."
+    xor rax, rax
+    ret
 
-    the_beginning: 
-        GET_DEC 4, eax     ; reads 64-bit unsigned int
-        
-        CMP eax, 0          ; compare rax with 0
-        JL the_beginning    ; Jump if less than 0
-        
-        PRINT_DEC 4, eax
-        NEWLINE
-        
-        ; store length in ESI to preserve it
-        MOV esi, eax
-        
-        ; calculate perimeter (4*s)
-        MOV ebx, esi      ; let ebx be perimeter
-        IMUL ebx, 4       ; ebx = ebx * 4
-        
-        PRINT_STRING "Perimeter: "
-        PRINT_DEC 4, ebx
-        NEWLINE
-            
-        ; calculate area (s^2)
-        MOV eax, esi
-        IMUL eax, eax
-        PRINT_STRING "Area: "
-        PRINT_DEC 8, eax
-        NEWLINE
-        
-        xor rax, rax
-        ret
+ 
+    
+ 
