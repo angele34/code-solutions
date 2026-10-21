@@ -1,0 +1,586 @@
+\documentclass[11pt,letterpaper]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\IfFileExists{lmodern.sty}{\usepackage{lmodern}}{}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{fancyhdr}
+\usepackage[hidelinks]{hyperref}
+
+% ---------- Code listing styles ----------
+\lstdefinestyle{asm}{
+  language={[x86masm]Assembler},
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue!60!black}\bfseries,
+  commentstyle=\color{green!40!black}\itshape,
+  stringstyle=\color{red!60!black},
+  numbers=none,
+  frame=single,
+  framerule=0.4pt,
+  rulecolor=\color{black!40},
+  backgroundcolor=\color{black!3},
+  columns=fullflexible,
+  keepspaces=true,
+  showstringspaces=false,
+  aboveskip=6pt,
+  belowskip=6pt,
+  xleftmargin=4pt,
+  xrightmargin=4pt,
+  breaklines=true
+}
+\lstdefinestyle{out}{
+  style=asm,
+  language={},
+  keywordstyle=,
+  commentstyle=,
+  stringstyle=,
+  backgroundcolor=\color{white}
+}
+\lstset{style=asm}
+\setlength{\emergencystretch}{3em}
+
+% ---------- Header / footer ----------
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{x86-64 Assembly Programming Problems}
+\cfoot{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ---------- Problem numbering: <section>.<n> ----------
+\newlist{problems}{enumerate}{1}
+\setlist[problems]{label=\textbf{\thesection.\arabic*},
+  leftmargin=2.2em, itemsep=1.3em, topsep=0.5em}
+
+\newcommand{\pts}[1]{\hfill\textit{(#1 pts)}}
+\newcommand{\hex}[1]{\texttt{#1}}
+\newcommand{\ttl}[1]{\textbf{#1.}}
+
+\title{\textbf{x86-64 Assembly Programming Problem Set}\\[2pt]
+\large Practice Programming problems}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\thispagestyle{fancy}
+
+\subsection*{Instructions}
+\begin{itemize}[itemsep=2pt]
+  \item Every problem asks for a \textbf{complete x86-64 program} (NASM/SASM syntax). Sample runs show the expected output;
+  \item Each program must use at least one functional x86-64 register. Unless told otherwise, store results in the named memory locations \emph{and} display them.
+  \item Assume the SASM I/O macros used in lecture (see Appendix~A). Assume well-formed input unless the problem asks for validation.
+  \item Problems are grouped by topic. Section~5 (searching) is the focus of recent exams; Section~9 contains a mock exam assembled from the problem bank. Hints, including binary search pseudocode, are in Appendix~B.
+\end{itemize}
+
+\tableofcontents
+\newpage
+
+%=====================================================================
+\section{Data Transfer and Addressing}
+%=====================================================================
+
+\begin{problems}
+
+\item \ttl{Swap} \pts{10}
+\\Declare two 64-bit variables \texttt{A dq 0x1111\_2222\_3333\_4444} and \texttt{B dq 0x5555\_6666\_7777\_8888}. Swap their contents using only \texttt{MOV} and registers (no \texttt{XCHG}). Display both values in hex before and after the swap.
+
+\item \ttl{Table lookup with LEA} \pts{10}
+\\Declare \texttt{TBL dw 0x0A0B, 0x1C1D, 0x2E2F, 0x3031, 0x4243}. Use \texttt{LEA} to put the address of \texttt{TBL} in a register, then load the \textbf{fourth} word into \texttt{AX} using an offset from that register. Display \texttt{AX} in hex.
+\begin{lstlisting}[style=out]
+AX = 3031
+\end{lstlisting}
+
+\item \ttl{Copy a string} \pts{10}
+\\Copy the null-terminated string \texttt{SRC db "assembly", 0} into a buffer \texttt{DST} byte by byte using two pointer registers (including the terminating 0). Display both strings.
+
+\end{problems}
+
+%=====================================================================
+\section{Arithmetic}
+%=====================================================================
+
+\begin{problems}
+
+\item \ttl{Expression} \pts{10}
+\\Declare \texttt{A dd 12}, \texttt{B dd 8}, \texttt{C dd 5}, \texttt{D dd 30}, and \texttt{RESULT dq 0}. Compute $(A+B)\times C - D$, store it in \texttt{RESULT}, and display it in decimal.
+\begin{lstlisting}[style=out]
+Result: 70
+\end{lstlisting}
+
+\item \ttl{Quotient and remainder} \pts{10}
+\\Read two signed integers and display their quotient and remainder. If the divisor is 0, display an error message instead of dividing.
+\begin{lstlisting}[style=out]
+Enter dividend: -17
+Enter divisor: 5
+Quotient: -3
+Remainder: -2
+\end{lstlisting}
+
+\item \ttl{Average of three} \pts{10}
+\\Read three integers and display their average as a quotient and a remainder.
+\begin{lstlisting}[style=out]
+Enter three numbers: 6 7 9
+Average: 7 remainder 1
+\end{lstlisting}
+
+\item \ttl{Sum of the first $n$ integers} \pts{10}
+\\Read a positive integer $n$ and compute $\frac{n(n+1)}{2}$. The program must support result values up to $2^{32}$ and beyond, so use 64-bit registers.
+\begin{lstlisting}[style=out]
+Enter n: 100000
+Sum: 5000050000
+\end{lstlisting}
+
+\item \ttl{Seconds to hours, minutes, seconds} \pts{10}
+\\Read a number of seconds and display it as hours, minutes, and seconds using \texttt{DIV}.
+\begin{lstlisting}[style=out]
+Enter seconds: 3725
+1 hour(s) 2 minute(s) 5 second(s)
+\end{lstlisting}
+
+\item \ttl{Temperature conversion} \pts{10}
+\\Read a Celsius temperature $C$ (integer) and display $F = \frac{9C}{5} + 32$ as a whole part and a remainder (the remainder is in fifths). Negative inputs must work (use signed instructions).
+\begin{lstlisting}[style=out]
+Enter Celsius: 37
+Fahrenheit: 98 remainder 3/5
+\end{lstlisting}
+
+\end{problems}
+
+%=====================================================================
+\section{Logic and Bit Manipulation}
+%=====================================================================
+
+\begin{problems}
+
+\item \ttl{Uppercase conversion} \pts{10}
+\\A string is stored in \texttt{STR db "hello world", 0}. Convert every lowercase letter to uppercase using \texttt{AND} (leave other characters unchanged), store the result in \texttt{OUT}, and display both strings.
+
+\item \ttl{Even or odd} \pts{10}
+\\Read an integer and use \texttt{BT} (or \texttt{AND} with a mask) to decide whether it is even or odd. Display \texttt{Even} or \texttt{Odd}.
+
+\item \ttl{Population count} \pts{15}
+\\Count the 1-bits in \texttt{NUM dq 0x0F0F\_F0F0\_1234\_5678} using \texttt{BT} in a loop. Display the count in decimal.
+\begin{lstlisting}[style=out]
+Number of 1-bits: 29
+\end{lstlisting}
+
+\item \ttl{Set, clear, toggle} \pts{10}
+\\Given \texttt{FLAGS db 0x5A}, use \texttt{OR}, \texttt{AND}, and \texttt{XOR} (in that order) to (a) set bit 0, (b) clear bit 3, (c) toggle bit 7. Display the value in hex after each step.
+\begin{lstlisting}[style=out]
+After set bit 0:    5B
+After clear bit 3:  53
+After toggle bit 7: D3
+\end{lstlisting}
+
+\item \ttl{Power of two} \pts{10}
+\\Read a positive integer $n$ and decide whether it is a power of two using the identity $n \;\&\; (n-1) = 0$. Display \texttt{Yes} or \texttt{No}. Test with 64, 96, and 1.
+
+\end{problems}
+
+%=====================================================================
+\section{Loops and Arrays}
+%=====================================================================
+
+\begin{problems}
+
+\item \ttl{Count a null-terminated list} \pts{10}
+\\Count the elements of \texttt{ALPHA db 0x12, 0x34, 0x56, 0x99, 0x00} (terminated by 0). Store the count in \texttt{COUNT} and display it.
+
+\item \ttl{Maximum and minimum} \pts{10}
+\\Given \texttt{ARR db 5, -3, 12, 7, -9, 0, 21, -1} (signed bytes, 8 elements), find and display the maximum and minimum.
+\begin{lstlisting}[style=out]
+Max: 21
+Min: -9
+\end{lstlisting}
+
+\item \ttl{Sign counts} \pts{10}
+\\For the same array, count how many elements are negative and how many are positive (zero counts as neither). Display both counts.
+\begin{lstlisting}[style=out]
+Negative: 3
+Positive: 4
+\end{lstlisting}
+
+\item \ttl{Array statistics} \pts{15}
+\\Given \texttt{ARR dd 14, 7, 92, 3, 55, 28, 61, 9}, compute and display the sum, the average (quotient and remainder), the maximum, and the minimum.
+\begin{lstlisting}[style=out]
+Sum: 269
+Average: 33 remainder 5
+Max: 92
+Min: 3
+\end{lstlisting}
+
+\item \ttl{Linear search} \pts{10}
+\\Given \texttt{ARR dd 14, 7, 92, 3, 55} (5 elements), read a key and display the 0-based index of its first occurrence, or \texttt{Not found}.
+\begin{lstlisting}[style=out]
+Enter key: 3
+Found at index 3
+\end{lstlisting}
+
+\item \ttl{Reverse in place} \pts{10}
+\\Reverse \texttt{ARR dd 1, 2, 3, 4, 5, 6, 7} in place using two index registers that move toward each other (no second array). Display the array before and after.
+\begin{lstlisting}[style=out]
+Before: 1 2 3 4 5 6 7
+After:  7 6 5 4 3 2 1
+\end{lstlisting}
+
+\item \ttl{Bubble sort} \pts{15}
+\\Sort \texttt{ARR dd 29, 4, 17, 8, 52, 1, 33, 12} in ascending order using bubble sort (nested loops; use \texttt{LOOP} for at least one of them). Display the array before and after.
+\begin{lstlisting}[style=out]
+Before: 29 4 17 8 52 1 33 12
+After:  1 4 8 12 17 29 33 52
+\end{lstlisting}
+
+\end{problems}
+
+%=====================================================================
+\section{Searching (Binary Search)}
+%=====================================================================
+
+Unless stated otherwise, use this sorted array of 12 distinct 32-bit values:
+\begin{lstlisting}
+ARR   dd 4, 9, 13, 22, 27, 35, 41, 56, 63, 70, 84, 99
+COUNT dd 12
+\end{lstlisting}
+Indices are 0-based. You may use \texttt{RSI}, \texttt{RDI}, \texttt{RBX}, etc.\ for the low, high, and mid indices. Your program must run in $O(\log n)$ steps: do not scan the array linearly.
+
+\begin{problems}
+
+\item \ttl{Basic binary search} \pts{15}
+\\Read a key and search \texttt{ARR} using iterative binary search. Display the 0-based index where the key is found, or \texttt{Not found}.
+\begin{lstlisting}[style=out]
+Enter key: 63
+Found at index 8
+
+Enter key: 50
+Not found
+\end{lstlisting}
+
+\item \ttl{Binary search with probe count} \pts{15}
+\\Extend Problem~5.1: count how many array elements you compared with the key (each loop iteration is one probe) and display this count in both the found and not-found cases.
+\begin{lstlisting}[style=out]
+Enter key: 70
+Found at index 9 after 4 probe(s)
+
+Enter key: 50
+Not found after 4 probe(s)
+
+Enter key: 35
+Found at index 5 after 1 probe(s)
+\end{lstlisting}
+
+\item \ttl{Binary search as a function} \pts{20}
+\\Write a function \texttt{BSEARCH} that receives, on the stack, (1) the address of the array, (2) the number of elements, and (3) the key. It returns the index in \texttt{RAX}, or $-1$ if not found. Clean up the parameters with \texttt{ret 24}. From \texttt{CMAIN}, call it for the keys 56, 99, and 5 and display each result.
+\begin{lstlisting}[style=out]
+56 -> 7
+99 -> 11
+5  -> -1
+\end{lstlisting}
+
+\item \ttl{Descending order} \pts{15}
+\\The array \texttt{DESC db 90, 77, 64, 51, 38, 25, 12} (7 unsigned bytes) is sorted in \textbf{descending} order. Modify binary search accordingly and search for a key read from the user. Display the index or \texttt{Not found}.
+\begin{lstlisting}[style=out]
+Enter key: 38
+Found at index 4
+
+Enter key: 100
+Not found
+\end{lstlisting}
+
+\item \ttl{Sort, then search} \pts{20}
+\\Given the unsorted array \texttt{ARR dd 29, 4, 17, 8, 52, 1, 33, 12}, first sort it in ascending order (any sort), display the sorted array, then read a key and binary-search the sorted array.
+\begin{lstlisting}[style=out]
+Sorted: 1 4 8 12 17 29 33 52
+Enter key: 29
+Found at index 5
+\end{lstlisting}
+
+\item \ttl{Binary search on characters} \pts{15}
+\\The string \texttt{LETTERS db "acdfhkmprtwz", 0} is sorted alphabetically. Read one character and binary-search for it (the length is found first by scanning for the terminator, or by computing it once). Display its index or \texttt{Not found}.
+\begin{lstlisting}[style=out]
+Enter character: k
+Found at index 5
+
+Enter character: b
+Not found
+\end{lstlisting}
+
+\item \ttl{Recursive binary search (challenge)} \pts{25}
+\\Write \texttt{BSEARCH} recursively: each call receives the array address, \texttt{low}, \texttt{high}, and the key on the stack, and either returns the index in \texttt{RAX} or calls itself on the left or right half. Use the same test keys as Problem~5.3.
+
+\end{problems}
+
+%=====================================================================
+\section{Strings}
+%=====================================================================
+
+\begin{problems}
+
+\item \ttl{DNA string: replace T with U} \pts{10}
+\\A DNA string is stored in memory location \texttt{STRVAR} and terminated with 0. Assume the DNA string is at most 40 characters long. Write an x86-64 program to replace every occurrence of the character ``T'' with the character ``U'' and store it in memory location \texttt{OUTPUT}. Also, count the length of the DNA string and keep it in the memory location \texttt{DNALEN}. Display both the size and the modified DNA string on the output screen.
+
+Place between 30--40 DNA characters of your choice for your DNA string declaration. You are required to use at least one functional x86-64 register in the program. Write your name and section on the 1st line of the code as a comment.
+
+Sample declaration:
+\begin{lstlisting}
+STRVAR  db "ACGTACGTCCCTTT", 0
+OUTPUT  times ?? db 0     ; replace ?? with the appropriate number
+DNALEN  db 0
+\end{lstlisting}
+(\textit{The original uses \texttt{//} for the comment; NASM comments start with \texttt{;}.})
+
+\item \ttl{Complementary strand} \pts{10}
+\\Declare a DNA string of 30--40 characters (terminated by 0) in \texttt{STRVAR}. Produce its complement in \texttt{COMP} by replacing A$\leftrightarrow$T and C$\leftrightarrow$G. Display the original, the complement, and the length. Use a \texttt{switch}-style structure (compare and jump).
+
+\item \ttl{GC content} \pts{10}
+For a DNA string of 30--40 characters, count the G's and C's and display the count and the percentage of GC content (integer division; also show the remainder).
+
+\item \ttl{Character frequency} \pts{10}
+\\Given \texttt{TEXT db "mississippi", 0}, read a character and display how many times it occurs.
+\begin{lstlisting}[style=out]
+Enter character: s
+Count: 4
+\end{lstlisting}
+
+\item \ttl{Vowel counter} \pts{10}
+\\A lowercase sentence of at most 40 characters is stored in \texttt{SENT} (terminated by 0). Count the vowels (a, e, i, o, u) and display the count.
+\begin{lstlisting}[style=out]
+Sentence: assembly is fun
+Vowels: 4
+\end{lstlisting}
+
+\item \ttl{Word count} \pts{10}
+\\Count the words in \texttt{SENT db "the quick brown fox", 0}. Assume words are separated by exactly one space and there are no leading or trailing spaces.
+\begin{lstlisting}[style=out]
+Words: 4
+\end{lstlisting}
+
+\item \ttl{Caesar cipher} \pts{15}
+\\Encrypt a lowercase word by shifting each letter forward by 3 positions, wrapping around from \texttt{z} to \texttt{a}. Store the result in \texttt{CIPHER} and display both strings.
+\begin{lstlisting}[style=out]
+Plain:  hello
+Cipher: khoor
+
+Plain:  xyz
+Cipher: abc
+\end{lstlisting}
+
+\item \ttl{Palindrome checker} \pts{15}
+\\A word of at most 20 lowercase letters is stored in \texttt{WORD} (terminated by 0). Determine whether it is a palindrome (use two pointers or the stack) and display \texttt{Palindrome} or \texttt{Not a palindrome}. Test with ``racecar'' and ``assembly''.
+
+\item \ttl{Reverse a string using the stack} \pts{15}
+\\Reverse \texttt{MSG db "assembly", 0} by pushing each character onto the stack and popping them back into \texttt{REV}. Display the original and reversed strings.
+\begin{lstlisting}[style=out]
+Original: assembly
+Reversed: ylbmessa
+\end{lstlisting}
+
+\end{problems}
+
+%=====================================================================
+\section{Functions and the Stack}
+%=====================================================================
+
+For all problems here, parameters are pushed by the caller, accessed through \texttt{RBP}-relative addressing, and removed by the callee with \texttt{ret n}.
+
+\begin{problems}
+
+\item \ttl{ADDTWO} \pts{10}
+\\Write a function \texttt{ADDTWO} that receives two 64-bit values on the stack and returns their sum in \texttt{RAX}. Call it with 25 and 17 and display the result.
+
+\item \ttl{MAXOF} \pts{10}
+Write a function \texttt{MAXOF} that receives two signed 64-bit values and returns the larger in \texttt{RAX}. Test with $(-5, 3)$ and $(10, 10)$.
+
+\item \ttl{SQUARE} \pts{10}
+\\Write a function \texttt{SQUARE} that receives one value and returns its square in \texttt{RAX} (64-bit). Display the squares of 7, 1000, and 65535.
+\begin{lstlisting}[style=out]
+7 -> 49
+1000 -> 1000000
+65535 -> 4294836225
+\end{lstlisting}
+
+\item \ttl{Factorial} \pts{15}
+\\Write a function \texttt{FACT} that returns $n!$ in \texttt{RAX} using a loop. Test with $n = 10$ and $n = 20$.
+\begin{lstlisting}[style=out]
+10! = 3628800
+20! = 2432902008176640000
+\end{lstlisting}
+
+\item \ttl{Power} \pts{15}
+\\Write a function \texttt{POWER} that receives a base and a non-negative exponent and returns $\text{base}^{\text{exp}}$ in \texttt{RAX}. Test with $(3, 13)$ and $(2, 40)$.
+\begin{lstlisting}[style=out]
+3^13 = 1594323
+2^40 = 1099511627776
+\end{lstlisting}
+
+\item \ttl{GCD function} \pts{15}
+\\Write a function \texttt{GCD} that returns the greatest common divisor of two positive integers using the Euclidean algorithm (repeated \texttt{DIV}). Display \texttt{GCD(48, 18)} and \texttt{GCD(17, 5)}.
+\begin{lstlisting}[style=out]
+GCD(48, 18) = 6
+GCD(17, 5) = 1
+\end{lstlisting}
+
+\item \ttl{Array sum function} \pts{15}
+\\Write a function \texttt{SUMARR} that receives the address of a 32-bit array and its length, and returns the sum in \texttt{RAX}. Use it on \texttt{ARR dd 14, 7, 92, 3, 55, 28, 61, 9}.
+
+\end{problems}
+
+%=====================================================================
+\section{Number and Input-Validation Programs}
+%=====================================================================
+
+\begin{problems}
+
+\item \ttl{Square: perimeter and area} \pts{10}
+\\Write an x86-64 assembly program to compute the perimeter and area of a square. The side of the square is obtained from the input prompt. Output the required result. There should be an error check for negative input. The program should support result values up to $2^{32}$.
+
+You are required to use at least one functional x86-64 register in the program. Write your name and section on the 1st line of the code as a comment.
+\begin{lstlisting}[style=out]
+***Example #1:
+Enter length: 20
+Perimeter: 80
+Area: 400
+
+***Example #2:
+Enter length: -20
+Error: Negative input not allowed, please try again.
+Enter length: 2
+Perimeter: 8
+Area: 4
+\end{lstlisting}
+
+\item \ttl{Rectangle with validation} \pts{10}
+\\Read the length and width of a rectangle. Reject negative values and zero with an error message and prompt again. Display the perimeter and area. Support results up to $2^{32}$.
+
+\item \ttl{Sum of digits} \pts{10}
+\\Read a positive integer (up to 10 digits) and display the sum of its digits using repeated division by 10.
+\begin{lstlisting}[style=out]
+Enter number: 98765
+Sum of digits: 35
+\end{lstlisting}
+
+\item \ttl{Fibonacci} \pts{10}
+\\Read $n$ ($1 \le n \le 40$) and display the first $n$ Fibonacci numbers using \texttt{LOOP}.
+\begin{lstlisting}[style=out]
+Enter n: 8
+1 1 2 3 5 8 13 21
+\end{lstlisting}
+
+\item \ttl{Prime test} \pts{15}
+\\Read an integer $n \ge 2$ and determine whether it is prime by testing divisors from 2 up to $n-1$ (or up to $\sqrt{n}$ for extra credit). Display \texttt{Prime} or \texttt{Composite}.
+
+\item \ttl{Decimal to binary} \pts{15}
+\\Read a positive integer and display its binary representation without leading zeros (use \texttt{BT} or shifts, or repeated division by 2 with the stack).
+\begin{lstlisting}[style=out]
+Enter number: 37
+Binary: 100101
+\end{lstlisting}
+
+\end{problems}
+
+\newpage
+%=====================================================================
+\section{Mock Exam}
+%=====================================================================
+
+\noindent\textit{Suggested time: 90 minutes. Solve without notes first, then check against the sample runs. Total: 50 points.}
+
+\begin{problems}
+
+\item \ttl{Binary search} \pts{20}
+\\Using \texttt{ARR dd 4, 9, 13, 22, 27, 35, 41, 56, 63, 70, 84, 99} (12 elements, sorted ascending), read a key and use \textbf{binary search} to find it. Display the index of the key, or \texttt{Not found}, and the number of probes made. A linear search will receive no credit.
+
+\item \ttl{String processing} \pts{15}
+\\A string of at most 40 lowercase characters is stored in \texttt{STR} (terminated by 0). Write a program that (a) counts the number of vowels, (b) converts the entire string to uppercase and stores it in \texttt{OUTPUT}, and (c) displays the length, the vowel count, and the converted string.
+
+\item \ttl{Function with stack parameters} \pts{15}
+Write a function \texttt{POWER} that takes a base and an exponent on the stack and returns the result in \texttt{RAX}. Use it to compute and display $3^{13}$ and $2^{40}$.
+
+\end{problems}
+
+\newpage
+%=====================================================================
+\appendix
+\section{SASM I/O Macro Reference}
+%=====================================================================
+\noindent The following macros are assumed (as used in lecture). Adjust to your course environment as needed.
+
+\begin{center}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Macro} & \textbf{Purpose} \\
+\midrule
+\texttt{PRINT\_STRING msg} & Print a null-terminated string or literal \\
+\texttt{PRINT\_CHAR ch} & Print one character \\
+\texttt{PRINT\_DEC size, reg/mem} & Print signed decimal (size = 1, 2, 4, 8 bytes) \\
+\texttt{PRINT\_UDEC size, reg/mem} & Print unsigned decimal \\
+\texttt{PRINT\_HEX size, reg/mem} & Print hexadecimal \\
+\texttt{GET\_DEC size, reg/mem} & Read signed decimal into register/memory \\
+\texttt{GET\_UDEC size, reg/mem} & Read unsigned decimal \\
+\texttt{GET\_CHAR reg/mem} & Read one character \\
+\texttt{NEWLINE} & Print a line break \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection*{Program skeleton}
+\begin{lstlisting}
+; Name, Section
+%include "io64.inc"
+
+section .data
+    ; declarations here
+
+section .text
+global CMAIN
+CMAIN:
+    mov rbp, rsp; for correct debugging
+    ; your code here
+    xor rax, rax
+    ret
+\end{lstlisting}
+
+\newpage
+%=====================================================================
+\section{Hints}
+%=====================================================================
+
+\subsection*{Binary search pseudocode (Section 5)}
+\begin{lstlisting}[style=out]
+low  = 0
+high = n - 1
+while (low <= high)
+    mid = (low + high) / 2
+    if (ARR[mid] == key)  found at mid
+    if (ARR[mid] <  key)  low  = mid + 1
+    else                  high = mid - 1
+not found
+\end{lstlisting}
+\begin{itemize}[itemsep=2pt]
+  \item Keep \texttt{low}, \texttt{high}, and \texttt{mid} in 64-bit registers. Compute \texttt{mid} with \texttt{ADD} then \texttt{SHR 1}.
+  \item When \texttt{mid} is 0, \texttt{high = mid - 1} becomes $-1$. Use a \emph{signed} comparison (\texttt{CMP low, high} then \texttt{JG}) on 64-bit registers so the loop exits correctly instead of wrapping around.
+  \item Element access for a \texttt{dd} array: \texttt{LEA RSI, [ARR]} once, then \texttt{MOV EAX, [RSI+RBX*4]} (scale 4). For \texttt{db} arrays no scale is needed.
+  \item Compare as signed or unsigned according to the data: \texttt{JL/JG} for signed values, \texttt{JB/JA} for unsigned (characters and the unsigned byte array in Problem 5.4).
+  \item For descending order (Problem 5.4), swap the direction of the two branches.
+\end{itemize}
+
+\subsection*{Functions with stack parameters (Sections 5 and 7)}
+\begin{itemize}[itemsep=2pt]
+  \item The caller pushes arguments (64-bit registers or memory; zero- or sign-extend 32-bit values first). \texttt{CALL} then pushes the return address.
+  \item In the callee, \texttt{MOV RBP, RSP} makes the \emph{last} pushed argument \texttt{[RBP+8]}, the one before it \texttt{[RBP+16]}, and so on.
+  \item End with \texttt{ret n}, where $n = 8 \times$ (number of arguments), so \texttt{RSP} returns to its original value. For three arguments, \texttt{ret 24}.
+  \item If a function changes registers the caller still needs, \texttt{PUSH} them at entry and \texttt{POP} them (in reverse order) before returning, and adjust the offsets accordingly.
+\end{itemize}
+
+\subsection*{General tips}
+\begin{itemize}[itemsep=2pt]
+  \item Writing a 32-bit register (e.g., \texttt{EAX}) zeroes the upper 32 bits of the 64-bit register; writing \texttt{AL} or \texttt{AX} does not.
+  \item Before \texttt{DIV}, zero \texttt{RDX}. Before \texttt{IDIV}, sign-extend \texttt{RAX} into \texttt{RDX:RAX} (\texttt{CQO}, or set \texttt{RDX} to 0 or $-1$ by hand).
+  \item \texttt{LOOP} uses \texttt{RCX} as a counter and does not check for 0 first; guard with \texttt{JRCXZ} when the count could be 0.
+  \item Test every program with at least one ``edge'' input: the first element, the last element, a missing value, and an empty or one-element case.
+\end{itemize}
+
+\end{document}
