@@ -26,6 +26,16 @@ is_even:
     CMP rsi, 2
     JLE sum  
     
+    JMP sum_nums
+    
+is_odd:
+    CMP rsi, 1
+    JLE sum  
+    
+    JMP sum_nums
+    
+sum_nums:
+
     MOV rbx, rsi    ; let rbx be the next number in factorial
     SUB rbx, 2
     
@@ -34,19 +44,6 @@ is_even:
     MOV rsi, rbx
     
     JMP is_even
-
-is_odd:
-    CMP rsi, 1
-    JLE sum  
-    
-    MOV rbx, rsi    ; let rbx be the next number in factorial
-    SUB rbx, 2
-    
-    IMUL rcx, rbx   ; multiply the adjacent numbers
-    
-    MOV rsi, rbx
-    
-    JMP is_odd 
     
 sum:
     PRINT_STRING "Output: "
